@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegan Vesta 🌱</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #86E3CE;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #86E3CE;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #86E3CE, #D0E6A5);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px; /* Account for fixed navbar */
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #86E3CE;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .hero-image {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .fruit-hero-1 {
+            width: 180px;
+            top: 15%;
+            right: 10%;
+            animation: float-slow 6s ease-in-out infinite;
+        }
+
+        .fruit-hero-2 {
+            width: 150px;
+            bottom: 20%;
+            right: 15%;
+            animation: float-slow 8s ease-in-out infinite;
+        }
+
+        .fruit-hero-3 {
+            width: 120px;
+            top: 30%;
+            right: 25%;
+            animation: float-slow 7s ease-in-out infinite;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                flex-direction: column;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero {
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-image {
+                width: 120px;
+                opacity: 0.2;
+            }
+
+            .fruit-hero-1 { right: 5%; }
+            .fruit-hero-2 { right: 10%; }
+            .fruit-hero-3 { right: 15%; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            background: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #86E3CE, #D0E6A5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .about-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .about-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .floating-fruits {
+            position: absolute;
+            width: 100px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .fruit-1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
+        .fruit-2 { top: 60%; right: 5%; animation: float 6s ease-in-out infinite; }
+        .fruit-3 { bottom: 10%; left: 15%; animation: float 7s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Restaurants Section - Update styles */
+        .restaurants {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, rgba(134, 227, 206, 0.05), rgba(208, 230, 165, 0.05));
+            position: relative;
+        }
+
+        .location-search {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .location-search input {
+            width: 70%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            margin-right: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .location-search input:focus {
+            border-color: #86E3CE;
+            box-shadow: 0 0 0 4px rgba(134, 227, 206, 0.1);
+        }
+
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .restaurant-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .restaurant-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .restaurant-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .restaurant-rating {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            color: #86E3CE;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .location-search input {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .location-search button {
+                width: 100%;
+            }
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, rgba(134, 227, 206, 0.1), rgba(208, 230, 165, 0.1));
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #86E3CE, #D0E6A5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: #86E3CE;
+            box-shadow: 0 0 0 4px rgba(134, 227, 206, 0.1);
+        }
+
+        .contact button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #86E3CE, #D0E6A5);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(134, 227, 206, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .contact form {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            background: #86E3CE;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .message {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+            display: inline-block;
+        }
+
+        .user {
+            background: #D4F8E8;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .bot {
+            background: #FFDDC1;
+            text-align: left;
+        }
+
+        input {
+            width: 75%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #FFB6B9;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #FF5E6C;
+        }
+
+        .typing {
+            font-size: 14px;
+            color: gray;
+        }
+
+        /* Restaurants Section */
+        .restaurants {
+            padding: 8rem 5%;
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        .restaurants h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #86E3CE, #D0E6A5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .location-input {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .location-input input {
+            width: 70%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            margin-right: 1rem;
+        }
+
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .restaurant-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .restaurant-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .restaurant-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .restaurant-rating {
+            color: #86E3CE;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .location-input input {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .location-input button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Vegan Vesta</div>
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#restaurants">Restaurants</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content"></div>
+            <h1>Discover the Joy of Vegan Cooking</h1>
+            <p>Your AI-powered companion for delicious plant-based recipes. Get personalized recommendations and step-by-step guidance.</p>
+            <a href="#about" class="hero-btn">Learn More</a>
+        </div>
+        <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500" alt="Fresh vegetables" class="hero-image fruit-hero-1">
+        <img src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=400" alt="Fresh fruits" class="hero-image fruit-hero-2">
+        <img src="https://images.unsplash.com/photo-1447175008436-054170c2e979?w=300" alt="Colorful vegetables" class="hero-image fruit-hero-3">
+    </section>
+
+    <section class="about" id="about">
+        <img src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=100" alt="Floating fruit" class="floating-fruits fruit-1">
+        <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=100" alt="Floating vegetable" class="floating-fruits fruit-2">
+        <img src="https://images.unsplash.com/photo-1447175008436-054170c2e979?w=100" alt="Floating fruit" class="floating-fruits fruit-3">
+        
+        <h2>About Vegan Vesta</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=80" alt="AI Chef">
+                <h3>AI-Powered Assistant</h3>
+                <p>Our intelligent recipe assistant helps you discover perfect plant-based recipes tailored to your preferences.</p>
+            </div>
+            <div class="about-card">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=80" alt="Fresh Ingredients">
+                <h3>Nearby Vegan Restaurants</h3>
+                <p>We focus on seasonal, wholesome ingredients to create delicious and nutritious vegan meals.</p>
+            </div>
+            <div class="about-card">
+                <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=80" alt="Community">
+                <h3>Growing Community</h3>
+                <p>Join our community of passionate vegan food lovers sharing recipes and cooking tips.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="restaurants" id="restaurants">
+        <h2>Vegan Restaurants Near You</h2>
+        <div class="location-search">
+            <p style="margin-bottom: 1.5rem; color: #666;">Discover delicious vegan and vegetarian restaurants near your location</p>
+            <button onclick="getLocation()" class="hero-btn">🔍 Find Restaurants Near Me</button>
+            <p id="location-status" style="margin-top: 1rem; color: #666;"></p>
+        </div>
+        <div class="restaurants-grid" id="restaurants-grid"></div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Your email">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Your message"></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Vegan Vesta. All rights reserved.</p>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">💬</div>
+        <div class="chat-container">
+            <h3>🌱 Recipe Assistant</h3>
+            <div class="chat-box" id="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Type an ingredient or dish...">
+            <button onclick="sendMessage()">Search</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.chat-toggle').click(function() {
+                $('.chat-container').slideToggle();
+            });
+
+            // Mobile menu toggle
+            $('.menu-toggle').click(function() {
+                $('.nav-links').toggleClass('active');
+            });
+
+            // Close mobile menu when clicking a link
+            $('.nav-links a').click(function() {
+                $('.nav-links').removeClass('active');
+            });
+
+            // Close mobile menu when clicking outside
+            $(document).click(function(event) {
+                if (!$(event.target).closest('.nav-content').length) {
+                    $('.nav-links').removeClass('active');
+                }
+            });
+        });
+
+        function sendMessage() {
+            let userText = $("#user-input").val().trim();
+            if (userText === "") return;
+            
+            $("#chat-box").append(`<div class='message user'>You: ${userText}</div>`);
+            $("#user-input").val("");
+            $("#chat-box").append(`<div class='message bot typing'>🤖 Typing...</div>`);
+
+            $.post("/get_recipe", { user_input: userText }, function(data) {
+                $(".typing").remove();
+                data.forEach(recipe => {
+                    let botResponse = `<div class='message bot'>
+                        <strong>🍽 ${recipe.title} (${recipe.category})</strong><br>
+                        <b>🍏 Ingredients:</b> ${recipe.ingredients}<br>
+                        <b>👨‍🍳 Preparation:</b> ${recipe.preparation}<br>
+                        <a href="${recipe.href}" target="_blank">🔗 View Full Recipe</a>
+                    </div>`;
+                    $("#chat-box").append(botResponse);
+                });
+                $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+            });
+        }
+
+        function getLocation() {
+            const statusElement = document.getElementById('location-status');
+            statusElement.textContent = "Getting your location...";
+
+            if (!navigator.geolocation) {
+                statusElement.textContent = "Geolocation is not supported by your browser";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    statusElement.textContent = "Found your location! Searching for restaurants...";
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Extract the most specific location
+                            const location = data.address.suburb || 
+                                           data.address.city_district || 
+                                           data.address.city || 
+                                           data.address.town;
+                    
+                            if (!location) {
+                                statusElement.textContent = "Could not determine your location. Please try again.";
+                                return;
+                            }
+                            
+                            console.log("Location found:", location);
+                            findNearbyRestaurants(location);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            statusElement.textContent = "Could not determine your location. Please try again.";
+                        });
+                },
+                (error) => {
+                    console.error('Error:', error);
+                    statusElement.textContent = "Unable to get your location. Please try again.";
+                }
+            );
+        }
+
+        function findNearbyRestaurants(location) {
+            const grid = $("#restaurants-grid");
+            const statusElement = document.getElementById('location-status');
+            
+            grid.html('<p style="text-align: center; color: #666;">Searching for restaurants...</p>');
+            
+            $.ajax({
+                url: '/get_restaurants',
+                method: 'POST',
+                data: { location: location },
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(data) {
+                    try {
+                        grid.empty();
+                        
+                        if (!data || data.length === 0) {
+                            grid.html('<p style="text-align: center; grid-column: 1/-1; color: #666;">No restaurants found in this area. Please try a different location.</p>');
+                            statusElement.textContent = "No restaurants found";
+                            return;
+                        }
+
+                        // Filter for vegan/vegetarian restaurants
+                        const veganRestaurants = data.filter(restaurant => 
+                            restaurant.cuisines && 
+                            (restaurant.cuisines.toLowerCase().includes('veg') || 
+                             restaurant.name.toLowerCase().includes('veg'))
+                        );
+
+                        const restaurantsToShow = veganRestaurants.length > 0 ? veganRestaurants : data;
+                        
+                        restaurantsToShow.forEach(restaurant => {
+                            if (restaurant.name && restaurant.address) {
+                                const address = restaurant.address.split(',').slice(0, -1).join(',');
+                                const priceRange = restaurant.price_range_from && restaurant.price_range_to ? 
+                                    `₹${restaurant.price_range_from} - ₹${restaurant.price_range_to}` : 'Price not available';
+                                
+                                const card = `
+                                    <div class="restaurant-card">
+                                        <h3>${restaurant.name}</h3>
+                                        <div class="restaurant-info">📍 ${address}</div>
+                                        <div class="restaurant-info">📞 ${restaurant.Phone || 'N/A'}</div>
+                                        <div class="restaurant-info">🍽 ${restaurant.cuisines || 'Various Cuisines'}</div>
+                                        <div class="restaurant-rating">
+                                            ⭐ ${parseFloat(restaurant.rating || 0).toFixed(1)}/5 
+                                            <span style="color: #666; font-size: 0.9rem;">(${parseInt(restaurant.review_count || 0)} reviews)</span>
+                                        </div>
+                                    </div>
+                                `;
+                                grid.append(card);
+                            }
+                        });
+
+                        const resultType = veganRestaurants.length > 0 ? 'vegan/vegetarian' : 'all';
+                        statusElement.textContent = `Found ${restaurantsToShow.length} ${resultType} restaurants in ${location}`;
+                    } catch (error) {
+                        console.error("Error processing response:", error);
+                        grid.html('<p style="text-align: center; grid-column: 1/-1; color: #666;">Error displaying restaurants. Please try again.</p>');
+                        statusElement.textContent = "Error displaying restaurants";
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Request failed:", status, error);
+                    console.log("Response:", xhr.responseText);
+                    grid.html('<p style="text-align: center; grid-column: 1/-1; color: #666;">Error loading restaurants. Please try again.</p>');
+                    statusElement.textContent = "Error loading restaurants";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
